@@ -5,7 +5,7 @@ import 'package:medical_app/src/widgets/bottom_appbar_widget.dart';
 import 'package:medical_app/src/widgets/doctor_card.dart';
 import 'package:medical_app/src/widgets/greetings_widget.dart';
 import 'package:medical_app/src/widgets/service_card_widget.dart';
-import 'package:medical_app/src/widgets/services_title_widget.dart';
+import 'package:medical_app/src/widgets/title_widget.dart';
 import 'package:medical_app/src/widgets/top_doctors_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -28,7 +28,12 @@ class HomePage extends StatelessWidget {
                 children: [
                   AppBarWidget(),
                   GreetingsWidget(),
-                  ServicesTitleWidget(),
+                  TitleWidget(
+                    title: 'Services',
+                    size: 15.0,
+                    edges: EdgeInsets.only(left: 15.0, top: 30.0),
+                    requiredContainer: true,
+                  ),
                   SizedBox(
                     height: 10.0,
                   ),

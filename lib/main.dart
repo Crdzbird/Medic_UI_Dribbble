@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medical_app/src/pages/home_page.dart';
+import 'package:medical_app/src/provider/doctors_provider.dart';
 import 'package:medical_app/src/provider/services_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ServicesProvider()),
+        ChangeNotifierProvider(create: (context) => DoctorsProvider()),
       ],
       child: MaterialApp(
         title: 'Material App',

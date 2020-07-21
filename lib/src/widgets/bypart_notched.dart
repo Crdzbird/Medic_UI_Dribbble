@@ -29,9 +29,7 @@ class ByPartNotched extends NotchedShape {
     final List<Offset> p = List<Offset>(6);
 
     p[0] = Offset(a - s1 - 20, b);
-    print(p[0]);
     p[1] = Offset(a + 20, b);
-    print(p[1]);
     final double cmp = b < 0 ? -1.0 : 1.0;
     p[2] = cmp * p2yA > cmp * p2yB ? Offset(p2xA, p2yA) : Offset(p2xB, p2yB);
 

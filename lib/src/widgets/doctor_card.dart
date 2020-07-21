@@ -1,24 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:medical_app/src/provider/doctors_provider.dart';
+import 'package:provider/provider.dart';
 
 class DoctorCard extends StatelessWidget {
-  final doctorImage = [
-    'assets/images/doc1.jpg',
-    'assets/images/doc2.jpg',
-    'assets/images/doc3.jpg',
-    'assets/images/doc4.jpg'
-  ];
-
-  final specialities = ['Dentist', 'Cardio', 'Ortho', 'ENT'];
-
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<DoctorsProvider>(context);
     final screen = MediaQuery.of(context).size;
     return Container(
       width: screen.width,
       height: screen.height * 0.3,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: doctorImage.length,
+        itemCount: provider.size,
         itemBuilder: (context, index) {
           return Container(
             padding: EdgeInsets.only(left: 15.0, right: 12.0, top: 10.0),
@@ -35,7 +29,7 @@ class DoctorCard extends StatelessWidget {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(35.0),
                           image: DecorationImage(
-                            image: AssetImage(doctorImage[index]),
+                            image: AssetImage(provider.doctorImage[index]),
                             fit: BoxFit.cover,
                           )),
                     ),
@@ -53,7 +47,7 @@ class DoctorCard extends StatelessWidget {
                   height: 10.0,
                 ),
                 Text(
-                  specialities[index],
+                  provider.specialities[index],
                   style: TextStyle(
                     color: Color.fromRGBO(156, 156, 156, 1.0),
                     fontSize: 15,
