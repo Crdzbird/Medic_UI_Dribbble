@@ -6,7 +6,7 @@ import 'package:medical_app/src/widgets/doctor_card.dart';
 import 'package:medical_app/src/widgets/greetings_widget.dart';
 import 'package:medical_app/src/widgets/service_card_widget.dart';
 import 'package:medical_app/src/widgets/title_widget.dart';
-import 'package:medical_app/src/widgets/top_doctors_widget.dart';
+import 'package:medical_app/src/widgets/list_tile_widget.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -38,7 +38,15 @@ class HomePage extends StatelessWidget {
                     height: 10.0,
                   ),
                   ServiceCardWidget(),
-                  TopDoctorsWidget(),
+                  ListTileWidget(
+                    leadingText: 'Top Doctors',
+                    leadingTextSize: 17.0,
+                    padding:
+                        EdgeInsets.only(left: 15.0, right: 15.0, top: 30.0),
+                    trailingText: 'See all',
+                    trailingColor: Colors.blue,
+                    trailingTextSize: 14.0,
+                  ),
                   DoctorCard(),
                   SizedBox(
                     height: 200,
@@ -50,7 +58,9 @@ class HomePage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, 'visit');
+        },
         child: Icon(FontAwesomeIcons.stethoscope),
         backgroundColor: Color.fromRGBO(77, 221, 133, 1.0),
       ),
