@@ -2,6 +2,7 @@ class Doctors {
   int id;
   String name;
   double rating;
+  int comments;
   double distance;
   String speciality;
   String image;
@@ -10,6 +11,7 @@ class Doctors {
       {this.id,
       this.name,
       this.rating,
+      this.comments,
       this.distance,
       this.speciality,
       this.image});

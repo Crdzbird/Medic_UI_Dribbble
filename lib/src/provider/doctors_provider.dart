@@ -50,6 +50,9 @@ class DoctorsProvider extends ChangeNotifier {
   double doubleInRange(int initialValue, int finalValue) =>
       Random().nextDouble() * (finalValue - initialValue) + finalValue;
 
+  int intInRange(int initialValue, int finalValue) =>
+      Random().nextInt(finalValue) * (finalValue - initialValue) + finalValue;
+
   List<Doctors> get doctors => _doctors;
 
   int get size => _size;
@@ -62,6 +65,7 @@ class DoctorsProvider extends ChangeNotifier {
           image: doctorImage[i],
           name: names[i],
           rating: doubleInRange(1, 5),
+          comments: intInRange(1, 500),
           distance: doubleInRange(10, 100)));
     }
     this._size = this._doctors.length;

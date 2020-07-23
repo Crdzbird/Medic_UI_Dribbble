@@ -29,7 +29,9 @@ class BottomAppBarWidget extends StatelessWidget {
                 Icons.calendar_today,
                 color: Color.fromRGBO(0, 0, 0, 0.20),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, 'appointment');
+              },
             ),
             IconButton(
               iconSize: 20.0,
