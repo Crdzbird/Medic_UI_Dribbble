@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:medical_app/src/provider/doctors_provider.dart';
 import 'package:medical_app/src/widgets/find_nearby_doctors_widget.dart';
+import 'package:medical_app/src/widgets/map_widget.dart';
 import 'package:medical_app/src/widgets/new_appointment_map_header_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -98,7 +99,6 @@ class _NewAppointmentMapWidgetState extends State<NewAppointmentMapWidget>
             onVerticalDragUpdate: _handleDragUpdate,
             onVerticalDragEnd: _handleDragEnd,
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
               decoration: const BoxDecoration(
                 color: Color.fromRGBO(247, 247, 247, 0.9),
                 borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
@@ -108,6 +108,14 @@ class _NewAppointmentMapWidgetState extends State<NewAppointmentMapWidget>
                   NewAppointmentMapHeaderWidget(
                     fontSize: headerFontSize,
                     topMargin: headerTopMargin,
+                    leftPadding: 32,
+                    rightPadding: 32,
+                  ),
+                  MapWidget(
+                    isVisible: _controller.status == AnimationStatus.completed,
+                    borderRadius: itemBorderRadius,
+                    leftMargin: iconLeftMargin(0),
+                    topMargin: iconTopMargin(0),
                   ),
                 ],
               ),

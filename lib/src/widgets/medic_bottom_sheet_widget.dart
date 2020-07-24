@@ -18,7 +18,7 @@ class MedicBottomSheetWidget extends StatefulWidget {
 
 class _MedicBottomSheetWidgetState extends State<MedicBottomSheetWidget> {
   double percentage = 0.15;
-  double scaledPercentage = 0.0;
+  double scaledPercentage = 0.0005847206489196984;
   DoctorsProvider provider;
 
   @override
@@ -26,7 +26,7 @@ class _MedicBottomSheetWidgetState extends State<MedicBottomSheetWidget> {
     provider = Provider.of<DoctorsProvider>(context);
     final size = MediaQuery.of(context).size;
     final paddingTop = MediaQuery.of(context).padding.top;
-    percentage = initialPercentage;
+    percentage = 0.21464072325112982;
     return Positioned.fill(
       child: DraggableScrollableSheet(
         minChildSize: initialPercentage,

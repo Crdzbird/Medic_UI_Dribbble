@@ -5,11 +5,15 @@ import 'package:provider/provider.dart';
 class NewAppointmentMapHeaderWidget extends StatelessWidget {
   final double fontSize;
   final double topMargin;
+  final double leftPadding;
+  final double rightPadding;
 
   const NewAppointmentMapHeaderWidget({
     Key key,
     @required this.fontSize,
     @required this.topMargin,
+    @required this.leftPadding,
+    @required this.rightPadding,
   }) : super(key: key);
 
   @override
@@ -20,6 +24,7 @@ class NewAppointmentMapHeaderWidget extends StatelessWidget {
         top: topMargin,
         width: screen.width,
         child: Container(
+          padding: EdgeInsets.only(left: leftPadding, right: rightPadding),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

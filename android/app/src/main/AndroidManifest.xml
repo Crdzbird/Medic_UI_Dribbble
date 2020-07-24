@@ -11,6 +11,8 @@
         android:name="io.flutter.app.FlutterApplication"
         android:label="medical_app"
         android:icon="@mipmap/ic_launcher">
+            <meta-data android:name="com.mapbox.token" android:value="pk.eyJ1IjoiY3JkemJpcmQiLCJhIjoiY2tjNDdibGdxMDU0ZjJ4bzZ5dDFmZmx0eCJ9.dBIEx7cFJoswAb46B6syYQ" />
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
