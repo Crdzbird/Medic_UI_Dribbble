@@ -3,7 +3,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:medical_app/src/provider/doctors_provider.dart';
-import 'package:medical_app/src/widgets/find_nearby_doctors_widget.dart';
 import 'package:medical_app/src/widgets/map_widget.dart';
 import 'package:medical_app/src/widgets/new_appointment_map_header_widget.dart';
 import 'package:provider/provider.dart';

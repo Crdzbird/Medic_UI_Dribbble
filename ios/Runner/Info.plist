@@ -3,7 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>GPS Permission needed in order to draw route</string>
+	<string>This app requires access to your location.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app requires access to your location.</string>
 	<key>io.flutter.embedded_views_preview</key>
 	<true/>
 	<key>MGLMapboxAccessToken</key>

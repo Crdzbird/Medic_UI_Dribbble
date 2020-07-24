@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
+import 'package:medical_app/src/models/coordinates_location.dart';
+import 'package:provider/provider.dart';
 
 class MapWidget extends StatefulWidget {
   final double topMargin;
@@ -20,8 +22,11 @@ class MapWidget extends StatefulWidget {
 }
 
 class _MapWidgetState extends State<MapWidget> {
+  CoordinatesLocation locationProvider;
+
   @override
   Widget build(BuildContext context) {
+    locationProvider = Provider.of<CoordinatesLocation>(context);
     final screen = MediaQuery.of(context).size;
     return Positioned(
       top: widget.topMargin,
@@ -45,14 +50,7 @@ class _MapWidgetState extends State<MapWidget> {
                   subdomains: ['a', 'b', 'c']),
               new MarkerLayerOptions(
                 markers: [
-                  new Marker(
-                    width: 80.0,
-                    height: 80.0,
-                    point: new LatLng(51.5, -0.09),
-                    builder: (ctx) => new Container(
-                      child: new FlutterLogo(),
-                    ),
-                  ),
+                  _currentLocation(screen),
                 ],
               ),
             ],
@@ -60,5 +58,19 @@ class _MapWidgetState extends State<MapWidget> {
         ),
       ),
     );
+  }
+
+  Marker _currentLocation(Size screen) {
+    return (locationProvider != null)
+        ? Marker(
+            width: 30,
+            height: 30,
+            point:
+                LatLng(locationProvider.latitude, locationProvider.longitude),
+            builder: (ctx) => new Container(
+              child: new FlutterLogo(),
+            ),
+          )
+        : Marker();
   }
 }
