@@ -68,6 +68,12 @@ class _MapWidgetState extends State<MapWidget>
     return null;
   }
 
+  var pointsGradient = <LatLng>[
+    LatLng(12.0585802, -86.2108339),
+    LatLng(12.065256, -86.2126622),
+    LatLng(12.0624586, -86.2104286),
+  ];
+
   @override
   Widget build(BuildContext context) {
     locationProvider = Provider.of<CoordinatesLocation>(context);
@@ -97,6 +103,19 @@ class _MapWidgetState extends State<MapWidget>
               new MarkerLayerOptions(
                 markers: [
                   _currentLocation(screen),
+                ],
+              ),
+              PolylineLayerOptions(
+                polylines: [
+                  Polyline(
+                    points: pointsGradient,
+                    strokeWidth: 4.0,
+                    gradientColors: [
+                      Color(0xffE40203),
+                      Color(0xffFEED00),
+                      Color(0xff007E2D),
+                    ],
+                  ),
                 ],
               ),
             ],
