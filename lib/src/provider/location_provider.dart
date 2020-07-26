@@ -3,9 +3,8 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:location/location.dart';
 import 'package:medical_app/src/models/coordinates_location.dart';
-import 'package:medical_app/src/service/location_service.dart';
 
-class LocationProvider {
+class LocationProvider extends ChangeNotifier {
   StreamController<CoordinatesLocation> _locationController =
       StreamController<CoordinatesLocation>();
 
