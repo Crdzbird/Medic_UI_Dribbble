@@ -93,31 +93,29 @@ class _NewAppointmentMapWidgetState extends State<NewAppointmentMapWidget>
           left: 0,
           right: 0,
           bottom: 0,
-          child: GestureDetector(
-            onTap: _toggle,
-            onVerticalDragUpdate: _handleDragUpdate,
-            onVerticalDragEnd: _handleDragEnd,
-            child: Container(
-              decoration: const BoxDecoration(
-                color: Color.fromRGBO(247, 247, 247, 0.9),
-                borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
-              ),
-              child: Stack(
-                children: <Widget>[
-                  NewAppointmentMapHeaderWidget(
-                    fontSize: headerFontSize,
-                    topMargin: headerTopMargin,
-                    leftPadding: 32,
-                    rightPadding: 32,
-                  ),
-                  MapWidget(
-                    isVisible: _controller.status == AnimationStatus.completed,
-                    borderRadius: itemBorderRadius,
-                    leftMargin: iconLeftMargin(0),
-                    topMargin: iconTopMargin(0),
-                  ),
-                ],
-              ),
+          child: Container(
+            decoration: const BoxDecoration(
+              color: Color.fromRGBO(247, 247, 247, 0.9),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+            ),
+            child: Stack(
+              children: <Widget>[
+                NewAppointmentMapHeaderWidget(
+                  fontSize: headerFontSize,
+                  topMargin: headerTopMargin,
+                  leftPadding: 32,
+                  rightPadding: 32,
+                  toggle: _toggle,
+                  onDragUpdate: _handleDragUpdate,
+                  onDragEnd: _handleDragEnd,
+                ),
+                MapWidget(
+                  isVisible: _controller.status == AnimationStatus.completed,
+                  borderRadius: itemBorderRadius,
+                  leftMargin: iconLeftMargin(0),
+                  topMargin: iconTopMargin(0),
+                ),
+              ],
             ),
           ),
         );
