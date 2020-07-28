@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:medical_app/src/provider/doctors_provider.dart';
+import 'package:medical_app/src/widgets/botom_sheet_button_widget.dart';
 import 'package:medical_app/src/widgets/map_widget.dart';
 import 'package:medical_app/src/widgets/new_appointment_map_header_widget.dart';
 import 'package:provider/provider.dart';
@@ -85,6 +86,7 @@ class _NewAppointmentMapWidgetState extends State<NewAppointmentMapWidget>
   @override
   Widget build(BuildContext context) {
     provider = Provider.of<DoctorsProvider>(context);
+    final screen = MediaQuery.of(context).size;
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -115,11 +117,24 @@ class _NewAppointmentMapWidgetState extends State<NewAppointmentMapWidget>
                   leftMargin: iconLeftMargin(0),
                   topMargin: iconTopMargin(0),
                 ),
+                BottomSheetButtonWidget(
+                  percentage:
+                      (_controller.status == AnimationStatus.completed) ? 1 : 0,
+                  title: 'Book an appointment',
+                  tap: () {
+                    _goToAppointment(context);
+                  },
+                ),
               ],
             ),
           ),
         );
       },
     );
+  }
+
+  void _goToAppointment(BuildContext context) {
+    print('da');
+    Navigator.pushNamed(context, 'calendarAppointment');
   }
 }

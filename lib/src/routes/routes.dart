@@ -15,6 +15,9 @@ Route generateRoutes(RouteSettings settings) {
     case 'appointment':
       return MaterialPageRoute(builder: (context) => NewAppointmentPage());
       break;
+    case 'calendarAppointment':
+      return MaterialPageRoute(builder: (context) => HomePage());
+      break;
     default:
       return MaterialPageRoute(builder: (context) => HomePage());
   }

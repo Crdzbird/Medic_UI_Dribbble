@@ -33,6 +33,7 @@ dependencies:
   flutter_map: ^0.10.1
   location: ^3.0.2
   http: ^0.12.2
+  table_calendar: ^2.2.3
 
 dev_dependencies:
   flutter_test:

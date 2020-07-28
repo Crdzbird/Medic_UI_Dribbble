@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-class FindNearbyDoctorsWidget extends StatelessWidget {
+class BottomSheetButtonWidget extends StatelessWidget {
   final double percentage;
+  final String title;
+  final onTap tap;
 
-  FindNearbyDoctorsWidget({this.percentage});
+  BottomSheetButtonWidget({this.title, this.percentage, this.tap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class FindNearbyDoctorsWidget extends StatelessWidget {
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0),
             child: Text(
-              'Find nearby Doctors',
+              title,
               style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w700,
@@ -28,9 +30,11 @@ class FindNearbyDoctorsWidget extends StatelessWidget {
           ),
           color: Color.fromRGBO(77, 221, 133, 0.8),
           shape: StadiumBorder(),
-          onPressed: () {},
+          onPressed: tap,
         ),
       ),
     );
   }
 }
+
+typedef onTap = void Function();

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:medical_app/src/provider/doctors_provider.dart';
 import 'package:medical_app/src/widgets/bottom_sheet_header_widget.dart';
 import 'package:medical_app/src/widgets/bottom_sheet_icon_widget.dart';
-import 'package:medical_app/src/widgets/find_nearby_doctors_widget.dart';
+import 'package:medical_app/src/widgets/botom_sheet_button_widget.dart';
 import 'package:provider/provider.dart';
 
 const double initialPercentage = 0.15;
@@ -109,8 +109,12 @@ class _MedicBottomSheetWidgetState extends State<MedicBottomSheetWidget> {
                       fontSize: 14 + percentage * 2,
                       topMargin: 10 + percentage * paddingTop,
                     ),
-                    FindNearbyDoctorsWidget(
+                    BottomSheetButtonWidget(
                       percentage: percentage,
+                      title: 'Find nearby Doctors',
+                      tap: () {
+                        Navigator.pushNamed(context, 'appointment');
+                      },
                     ),
                   ],
                 ),
