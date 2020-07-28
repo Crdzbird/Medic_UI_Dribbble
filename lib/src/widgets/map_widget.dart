@@ -28,6 +28,7 @@ class _MapWidgetState extends State<MapWidget>
   CoordinatesLocation locationProvider;
   MapController _mapController = MapController();
   AnimationController _controller;
+  List<LatLng> _polylines = new List();
 
   @override
   void initState() {
@@ -92,26 +93,35 @@ class _MapWidgetState extends State<MapWidget>
                 if (snapshot.hasData) {
                   return FlutterMap(
                     mapController: _mapController,
-                    options: new MapOptions(
+                    options: MapOptions(
                       center: _setupCenter(),
                       interactive: true,
                     ),
                     layers: [
-                      new TileLayerOptions(
+                      TileLayerOptions(
                           urlTemplate:
                               "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                           subdomains: ['a', 'b', 'c']),
-                      new MarkerLayerOptions(
+                      MarkerLayerOptions(
                         markers: [
                           _currentLocation(screen),
+                          Marker(
+                            width: 80.0,
+                            height: 80.0,
+                            point: LatLng(12.0821092, -86.2527026),
+                            builder: (ctx) => Icon(
+                              Icons.location_on,
+                              color: Color.fromRGBO(234, 82, 155, 1.0),
+                            ),
+                          ),
                         ],
                       ),
                       PolylineLayerOptions(
                         polylines: [
                           Polyline(
-                            points: snapshot.data,
+                            points: _polylines,
                             strokeWidth: 4.0,
-                            color: Colors.blue,
+                            color: Color.fromRGBO(234, 82, 155, 0.7),
                           ),
                         ],
                       ),
@@ -120,32 +130,24 @@ class _MapWidgetState extends State<MapWidget>
                 }
                 return FlutterMap(
                   mapController: _mapController,
-                  options: new MapOptions(
+                  options: MapOptions(
                     center: _setupCenter(),
                     interactive: true,
                   ),
                   layers: [
-                    new TileLayerOptions(
-                        urlTemplate:
-                            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                        subdomains: ['a', 'b', 'c']),
-                    new MarkerLayerOptions(
+                    TileLayerOptions(
+                      urlTemplate:
+                          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                      subdomains: ['a', 'b', 'c'],
+                    ),
+                    MarkerLayerOptions(
                       markers: [
                         _currentLocation(screen),
                         Marker(
-                          width: 40,
-                          height: 40,
-                          point: LatLng(-86.2527026, 12.0821092),
-                          builder: (ctx) => new Container(
-                            child: new CustomPaint(
-                              painter: new SpritePainter(_controller),
-                              child: new SizedBox(
-                                width: screen.width * 0.3,
-                                height: screen.width * 0.3,
-                              ),
-                            ),
-                          ),
-                        )
+                          width: 80.0,
+                          height: 80.0,
+                          point: LatLng(12.0821092, -86.2527026),
+                        ),
                       ],
                     ),
                   ],
@@ -157,14 +159,19 @@ class _MapWidgetState extends State<MapWidget>
   }
 
   Future<List<LatLng>> _loadRoute() async {
-    List<LatLng> _polylines = new List();
-    var route = await OpenRouteService().getRoute(
-        "${locationProvider.longitude},${locationProvider.latitude}",
-        points[0]);
-    route.features[0].geometry.coordinates.forEach((element) {
-      _polylines.add(new LatLng(element[1], element[0]));
-    });
-    return _polylines;
+    if (_polylines.isEmpty) {
+      print('null');
+      _polylines = new List();
+      var route = await OpenRouteService().getRoute(
+          "${locationProvider.longitude},${locationProvider.latitude}",
+          points[0]);
+      route.features[0].geometry.coordinates.forEach((element) {
+        _polylines.add(new LatLng(element[1], element[0]));
+      });
+      return _polylines;
+    } else {
+      return [];
+    }
   }
 
   Marker _currentLocation(Size screen) {
