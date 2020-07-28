@@ -1,9 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:medical_app/src/models/coordinates_location.dart';
+import 'package:medical_app/src/service/openroute/openrouteservice.dart';
 import 'package:medical_app/src/widgets/circle_painter_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -59,7 +58,7 @@ class _MapWidgetState extends State<MapWidget>
       _mapController.onReady.then((result) => {
             _mapController.move(
               LatLng(locationProvider.latitude, locationProvider.longitude),
-              18.0,
+              _mapController.zoom,
             ),
             _center = _mapController.center
           });
@@ -68,10 +67,8 @@ class _MapWidgetState extends State<MapWidget>
     return null;
   }
 
-  var pointsGradient = <LatLng>[
-    LatLng(12.0585802, -86.2108339),
-    LatLng(12.065256, -86.2126622),
-    LatLng(12.0624586, -86.2104286),
+  var points = <String>[
+    '-86.2527026,12.0821092',
   ];
 
   @override
@@ -88,41 +85,86 @@ class _MapWidgetState extends State<MapWidget>
         opacity: (widget.isVisible) ? 1 : 0,
         duration: Duration(milliseconds: 300),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(widget.borderRadius),
-          child: FlutterMap(
-            mapController: _mapController,
-            options: new MapOptions(
-              center: _setupCenter(),
-              zoom: 13.0,
-            ),
-            layers: [
-              new TileLayerOptions(
-                  urlTemplate:
-                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                  subdomains: ['a', 'b', 'c']),
-              new MarkerLayerOptions(
-                markers: [
-                  _currentLocation(screen),
-                ],
-              ),
-              PolylineLayerOptions(
-                polylines: [
-                  Polyline(
-                    points: pointsGradient,
-                    strokeWidth: 4.0,
-                    gradientColors: [
-                      Color(0xffE40203),
-                      Color(0xffFEED00),
-                      Color(0xff007E2D),
+            borderRadius: BorderRadius.circular(widget.borderRadius),
+            child: FutureBuilder(
+              future: _loadRoute(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return FlutterMap(
+                    mapController: _mapController,
+                    options: new MapOptions(
+                      center: _setupCenter(),
+                      interactive: true,
+                    ),
+                    layers: [
+                      new TileLayerOptions(
+                          urlTemplate:
+                              "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                          subdomains: ['a', 'b', 'c']),
+                      new MarkerLayerOptions(
+                        markers: [
+                          _currentLocation(screen),
+                        ],
+                      ),
+                      PolylineLayerOptions(
+                        polylines: [
+                          Polyline(
+                            points: snapshot.data,
+                            strokeWidth: 4.0,
+                            color: Colors.blue,
+                          ),
+                        ],
+                      ),
                     ],
+                  );
+                }
+                return FlutterMap(
+                  mapController: _mapController,
+                  options: new MapOptions(
+                    center: _setupCenter(),
+                    interactive: true,
                   ),
-                ],
-              ),
-            ],
-          ),
-        ),
+                  layers: [
+                    new TileLayerOptions(
+                        urlTemplate:
+                            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                        subdomains: ['a', 'b', 'c']),
+                    new MarkerLayerOptions(
+                      markers: [
+                        _currentLocation(screen),
+                        Marker(
+                          width: 40,
+                          height: 40,
+                          point: LatLng(-86.2527026, 12.0821092),
+                          builder: (ctx) => new Container(
+                            child: new CustomPaint(
+                              painter: new SpritePainter(_controller),
+                              child: new SizedBox(
+                                width: screen.width * 0.3,
+                                height: screen.width * 0.3,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                );
+              },
+            )),
       ),
     );
+  }
+
+  Future<List<LatLng>> _loadRoute() async {
+    List<LatLng> _polylines = new List();
+    var route = await OpenRouteService().getRoute(
+        "${locationProvider.longitude},${locationProvider.latitude}",
+        points[0]);
+    route.features[0].geometry.coordinates.forEach((element) {
+      _polylines.add(new LatLng(element[1], element[0]));
+    });
+    return _polylines;
   }
 
   Marker _currentLocation(Size screen) {

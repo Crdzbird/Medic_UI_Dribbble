@@ -14,8 +14,8 @@ class LocationProvider extends ChangeNotifier {
 
   LocationProvider() {
     location.requestPermission().then((granted) {
-      if (((granted) == PermissionStatus.GRANTED)) {
-        location.onLocationChanged().listen((locationData) {
+      if (((granted) == PermissionStatus.granted)) {
+        location.onLocationChanged.listen((locationData) {
           if (locationData != null) {
             _locationController.add(CoordinatesLocation(
               latitude: locationData.latitude,

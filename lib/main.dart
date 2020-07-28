@@ -4,7 +4,6 @@ import 'package:medical_app/src/provider/doctors_provider.dart';
 import 'package:medical_app/src/provider/location_provider.dart';
 import 'package:medical_app/src/provider/services_provider.dart';
 import 'package:medical_app/src/routes/routes.dart';
-import 'package:medical_app/src/service/location_service.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
