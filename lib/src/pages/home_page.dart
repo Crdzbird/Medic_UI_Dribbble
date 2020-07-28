@@ -49,7 +49,18 @@ class HomePage extends StatelessWidget {
                   ),
                   DoctorCard(),
                   SizedBox(
-                    height: 200,
+                    height: 10.0,
+                  ),
+                  ListTileWidget(
+                    leadingText: 'Specialist',
+                    leadingTextSize: 17.0,
+                    padding:
+                        EdgeInsets.only(left: 15.0, right: 15.0, top: 30.0),
+                    trailingText: '',
+                  ),
+                  DoctorCard(),
+                  SizedBox(
+                    height: 30.0,
                   ),
                 ],
               ),

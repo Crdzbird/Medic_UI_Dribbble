@@ -9,7 +9,7 @@ class DoctorCard extends StatelessWidget {
     final screen = MediaQuery.of(context).size;
     return Container(
       width: screen.width,
-      height: screen.height * 0.3,
+      height: screen.height * 0.2,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: provider.size,
