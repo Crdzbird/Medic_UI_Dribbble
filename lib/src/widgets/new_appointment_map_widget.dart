@@ -96,9 +96,17 @@ class _NewAppointmentMapWidgetState extends State<NewAppointmentMapWidget>
           right: 0,
           bottom: 0,
           child: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: Color.fromRGBO(247, 247, 247, 0.9),
               borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 10,
+                  blurRadius: 7,
+                  offset: Offset(0, 2),
+                ),
+              ],
             ),
             child: Stack(
               children: <Widget>[
@@ -134,7 +142,6 @@ class _NewAppointmentMapWidgetState extends State<NewAppointmentMapWidget>
   }
 
   void _goToAppointment(BuildContext context) {
-    print('da');
     Navigator.pushNamed(context, 'calendarAppointment');
   }
 }

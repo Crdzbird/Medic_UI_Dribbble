@@ -127,31 +127,27 @@ class _MapWidgetState extends State<MapWidget>
                       ),
                     ],
                   );
+                } else {
+                  return FlutterMap(
+                    mapController: _mapController,
+                    options: MapOptions(
+                      center: _setupCenter(),
+                      interactive: true,
+                    ),
+                    layers: [
+                      TileLayerOptions(
+                        urlTemplate:
+                            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                        subdomains: ['a', 'b', 'c'],
+                      ),
+                      MarkerLayerOptions(
+                        markers: [
+                          _currentLocation(screen),
+                        ],
+                      ),
+                    ],
+                  );
                 }
-                return FlutterMap(
-                  mapController: _mapController,
-                  options: MapOptions(
-                    center: _setupCenter(),
-                    interactive: true,
-                  ),
-                  layers: [
-                    TileLayerOptions(
-                      urlTemplate:
-                          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                      subdomains: ['a', 'b', 'c'],
-                    ),
-                    MarkerLayerOptions(
-                      markers: [
-                        _currentLocation(screen),
-                        Marker(
-                          width: 80.0,
-                          height: 80.0,
-                          point: LatLng(12.0821092, -86.2527026),
-                        ),
-                      ],
-                    ),
-                  ],
-                );
               },
             )),
       ),

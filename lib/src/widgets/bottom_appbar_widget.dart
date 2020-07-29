@@ -20,7 +20,9 @@ class BottomAppBarWidget extends StatelessWidget {
                 Icons.star_border,
                 color: Color.fromRGBO(0, 0, 0, 0.20),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, 'calendarAppointment');
+              },
             ),
             IconButton(
               iconSize: 20.0,
@@ -49,7 +51,9 @@ class BottomAppBarWidget extends StatelessWidget {
                 Icons.location_on,
                 color: Color.fromRGBO(0, 0, 0, 0.20),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, 'appointment');
+              },
             )
           ],
         ),
