@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:medical_app/src/provider/doctors_provider.dart';
 import 'package:medical_app/src/widgets/botom_sheet_button_widget.dart';
@@ -86,7 +85,6 @@ class _NewAppointmentMapWidgetState extends State<NewAppointmentMapWidget>
   @override
   Widget build(BuildContext context) {
     provider = Provider.of<DoctorsProvider>(context);
-    final screen = MediaQuery.of(context).size;
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medical_app/src/widgets/list_tile_widget.dart';
 import 'package:medical_app/src/widgets/medic_bottom_sheet_widget.dart';
 import 'package:medical_app/src/widgets/searchbar_widget.dart';
 

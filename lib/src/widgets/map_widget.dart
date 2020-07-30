@@ -156,7 +156,6 @@ class _MapWidgetState extends State<MapWidget>
 
   Future<List<LatLng>> _loadRoute() async {
     if (_polylines.isEmpty) {
-      print('null');
       _polylines = new List();
       var route = await OpenRouteService().getRoute(
           "${locationProvider.longitude},${locationProvider.latitude}",

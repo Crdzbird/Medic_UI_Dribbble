@@ -1,6 +1,3 @@
-import 'dart:math' as math;
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:medical_app/src/provider/doctors_provider.dart';
 import 'package:medical_app/src/widgets/bottom_sheet_header_widget.dart';

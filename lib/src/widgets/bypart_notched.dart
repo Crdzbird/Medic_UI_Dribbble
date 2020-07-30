@@ -23,8 +23,8 @@ class ByPartNotched extends NotchedShape {
     final double p2xB = ((a * r * r) + n2) / (a * a + b * b) + 10;
 
     //Depth on arc below notch.
-    final double p2yA = math.sqrt(r * r - p2xA * p2xA) + 100;
-    final double p2yB = math.sqrt(r * r - p2xB * p2xB) + 100;
+    final double p2yA = math.sqrt(r * r - p2xA * p2xA) + 50;
+    final double p2yB = math.sqrt(r * r - p2xB * p2xB) + 50;
 
     final List<Offset> p = List<Offset>(6);
 

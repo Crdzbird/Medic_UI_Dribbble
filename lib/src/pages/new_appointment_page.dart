@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medical_app/src/widgets/medic_bottom_sheet_widget.dart';
 import 'package:medical_app/src/widgets/new_appointment_map_widget.dart';
 
 class NewAppointmentPage extends StatelessWidget {
