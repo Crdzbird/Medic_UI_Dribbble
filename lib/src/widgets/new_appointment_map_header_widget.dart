@@ -34,6 +34,10 @@ class NewAppointmentMapHeaderWidget extends StatelessWidget {
         onVerticalDragUpdate: onDragUpdate,
         onVerticalDragEnd: onDragEnd,
         child: Container(
+          height: screen.height * 0.08,
+          decoration: BoxDecoration(
+            color: Color.fromRGBO(247, 247, 247, 1.0),
+          ),
           padding: EdgeInsets.only(left: leftPadding, right: rightPadding),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,

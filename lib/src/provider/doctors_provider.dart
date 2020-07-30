@@ -59,14 +59,17 @@ class DoctorsProvider extends ChangeNotifier {
 
   _loadDoctors() {
     for (var i = 0; i < 9; i++) {
-      this._doctors.add(new Doctors(
-          id: i,
-          speciality: specialities[i],
-          image: doctorImage[i],
-          name: names[i],
-          rating: doubleInRange(1, 5),
-          comments: intInRange(1, 500),
-          distance: doubleInRange(10, 100)));
+      this._doctors.add(
+            new Doctors(
+              id: i,
+              speciality: specialities[i],
+              image: doctorImage[i],
+              name: names[i],
+              rating: doubleInRange(1, 5),
+              comments: intInRange(1, 500),
+              distance: doubleInRange(10, 100),
+            ),
+          );
     }
     this._size = this._doctors.length;
   }

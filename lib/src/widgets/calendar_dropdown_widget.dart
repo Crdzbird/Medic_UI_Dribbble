@@ -1,12 +1,10 @@
 import 'dart:math' as math;
-import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:medical_app/src/provider/doctors_provider.dart';
-import 'package:medical_app/src/widgets/botom_sheet_button_widget.dart';
-import 'package:medical_app/src/widgets/map_widget.dart';
-import 'package:medical_app/src/widgets/medic_bottom_sheet_widget.dart';
+import 'package:medical_app/src/widgets/hour_menu_widget.dart';
 import 'package:medical_app/src/widgets/new_appointment_map_header_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -43,6 +41,7 @@ class _CalendarDropDownWidgetState extends State<CalendarDropDownWidget>
       headerTopMargin;
   double iconLeftMargin(int index) =>
       lerp(index * (iconsHorizontalSpacing + iconStartSize), 0);
+  int _selectedMainPage = 0;
 
   @override
   void initState() {
@@ -98,9 +97,10 @@ class _CalendarDropDownWidgetState extends State<CalendarDropDownWidget>
         return Align(
           alignment: Alignment.bottomCenter,
           child: Container(
+            width: double.infinity,
             height: lerp(minHeight, maxHeight),
             decoration: BoxDecoration(
-              color: Color.fromRGBO(247, 247, 247, 0.9),
+              color: Color.fromRGBO(247, 247, 247, 1.0),
               borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
               boxShadow: [
                 BoxShadow(
@@ -111,115 +111,16 @@ class _CalendarDropDownWidgetState extends State<CalendarDropDownWidget>
                 ),
               ],
             ),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 30.0,
-                ),
-                GestureDetector(
-                  onTap: _toggle,
-                  onVerticalDragUpdate: _handleDragUpdate,
-                  onVerticalDragEnd: _handleDragEnd,
-                  child: Container(
-                    padding: EdgeInsets.only(left: 32, right: 32),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        CircleAvatar(
-                          radius: screen.width * 0.1 - screen.height * 0.015,
-                          backgroundImage:
-                              AssetImage(provider.doctors[0].image),
-                        ),
-                        SizedBox(
-                          width: screen.width * 0.05,
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    provider.doctors[0].name,
-                                    style: TextStyle(
-                                        color: Colors.black.withOpacity(0.5),
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w700),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(
-                                    provider.doctors[0].speciality,
-                                    style: TextStyle(
-                                        color: Colors.black.withOpacity(0.5),
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Icon(
-                                        Icons.star,
-                                        color: Colors.green,
-                                        size: 20.0,
-                                      ),
-                                      Text(
-                                        "${provider.doctors[0].rating.toStringAsPrecision(2)}",
-                                        style: TextStyle(
-                                            color:
-                                                Colors.black.withOpacity(0.5),
-                                            fontSize: 10.0,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      SizedBox(
-                                        width: screen.width * 0.1,
-                                      ),
-                                      Icon(
-                                        Icons.message,
-                                        color: Colors.blueAccent,
-                                        size: 20.0,
-                                      ),
-                                      Text(
-                                        "${provider.doctors[0].comments}",
-                                        style: TextStyle(
-                                            color:
-                                                Colors.black.withOpacity(0.5),
-                                            fontSize: 10.0,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                      SizedBox(
-                                        width: screen.width * 0.1,
-                                      ),
-                                      Icon(
-                                        Icons.location_on,
-                                        color: Colors.lightGreen,
-                                        size: 20.0,
-                                      ),
-                                      Text(
-                                        "${provider.doctors[0].distance.toStringAsPrecision(3)} km",
-                                        style: TextStyle(
-                                            color:
-                                                Colors.black.withOpacity(0.5),
-                                            fontSize: 10.0,
-                                            fontWeight: FontWeight.w400),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+            child: Stack(
+              children: <Widget>[
+                NewAppointmentMapHeaderWidget(
+                  fontSize: headerFontSize,
+                  topMargin: headerTopMargin,
+                  leftPadding: 32,
+                  rightPadding: 32,
+                  toggle: _toggle,
+                  onDragUpdate: _handleDragUpdate,
+                  onDragEnd: _handleDragEnd,
                 ),
                 AnimatedOpacity(
                   duration: Duration(seconds: 1),
@@ -230,8 +131,151 @@ class _CalendarDropDownWidgetState extends State<CalendarDropDownWidget>
                     visible: (_controller.status == AnimationStatus.completed)
                         ? true
                         : false,
-                    child: TableCalendar(
-                      calendarController: _calendarController,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: screen.height * 0.13,
+                        left: 10.0,
+                        right: 10.0,
+                      ),
+                      child: CustomScrollView(
+                        slivers: [
+                          SliverToBoxAdapter(
+                            child: Column(
+                              children: [
+                                TableCalendar(
+                                  calendarController: _calendarController,
+                                  startingDayOfWeek: StartingDayOfWeek.monday,
+                                  rowHeight: screen.height * 0.055,
+                                  calendarStyle: CalendarStyle(
+                                    outsideDaysVisible: true,
+                                    todayColor: Theme.of(context).primaryColor,
+                                    holidayStyle:
+                                        TextStyle().copyWith(color: Colors.red),
+                                    markersColor:
+                                        Theme.of(context).primaryColor,
+                                  ),
+                                  daysOfWeekStyle: DaysOfWeekStyle(
+                                    dowTextBuilder: (date, locale) =>
+                                        DateFormat.E(locale).format(date)[0],
+                                    weekdayStyle:
+                                        TextStyle(fontWeight: FontWeight.w700),
+                                    weekendStyle:
+                                        TextStyle(fontWeight: FontWeight.w700),
+                                  ),
+                                  headerStyle: HeaderStyle(
+                                    centerHeaderTitle: true,
+                                    formatButtonVisible: false,
+                                    formatButtonTextStyle: TextStyle().copyWith(
+                                        color: Colors.white, fontSize: 15.0),
+                                    formatButtonDecoration: BoxDecoration(
+                                      color: Colors.deepOrange[400],
+                                      borderRadius: BorderRadius.circular(16.0),
+                                    ),
+                                  ),
+                                  builders: CalendarBuilders(
+                                    selectedDayBuilder:
+                                        (context, date, events) => Container(
+                                      margin: const EdgeInsets.all(4.0),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color:
+                                            Color.fromRGBO(240, 116, 176, 1.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      child: Text(
+                                        date.day.toString(),
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                    todayDayBuilder: (context, date, events) =>
+                                        Container(
+                                      margin: const EdgeInsets.all(4.0),
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                          color: Colors.transparent,
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
+                                      child: Text(
+                                        date.day.toString(),
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 15.0,
+                                        horizontal: 10.0,
+                                      ),
+                                      child: Text(
+                                        'These times are available',
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          SliverGrid(
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              childAspectRatio:
+                                  (((screen.height - kToolbarHeight - 24) / 2) /
+                                      (screen.width / 3)),
+                              crossAxisCount: 2,
+                            ),
+                            delegate: SliverChildBuilderDelegate(
+                              (BuildContext context, int index) {
+                                print(index);
+                                return HourMenuWidget(
+                                  active: _selectedMainPage == index,
+                                  onTap: () {
+                                    setState(() {
+                                      _selectedMainPage = index;
+                                    });
+                                  },
+                                  icon: Icons.dashboard,
+                                  title:
+                                      provider.doctors[0].hoursAvailable[index],
+                                );
+                              },
+                              childCount:
+                                  provider.doctors[0].hoursAvailable.length,
+                            ),
+                          ),
+                          SliverToBoxAdapter(
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                horizontal: 10.0,
+                                vertical: 10.0,
+                              ),
+                              child: FlatButton(
+                                color: Color.fromRGBO(77, 221, 136, 1.0),
+                                shape: StadiumBorder(
+                                  side: BorderSide(
+                                    color: Color.fromRGBO(77, 221, 136, 1.0),
+                                    style: BorderStyle.solid,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(25.0),
+                                  child: Text(
+                                    'Confirm',
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

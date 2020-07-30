@@ -44,7 +44,7 @@ class _MedicBottomSheetWidgetState extends State<MedicBottomSheetWidget> {
               return Container(
                 padding: EdgeInsets.only(left: 32),
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(247, 247, 247, 0.9),
+                  color: Color.fromRGBO(247, 247, 247, 1.0),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
@@ -62,10 +62,11 @@ class _MedicBottomSheetWidgetState extends State<MedicBottomSheetWidget> {
                     Opacity(
                       opacity: percentage == 1 ? 1 : 0,
                       child: ListView.builder(
+                        shrinkWrap: true,
                         padding: EdgeInsets.only(
                           right: 32,
                           top: size.height * 0.15,
-                          bottom: size.height * 0.3,
+                          bottom: size.height * 0.1,
                         ),
                         controller: scrollController,
                         itemCount: provider.size,

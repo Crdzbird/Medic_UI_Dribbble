@@ -23,9 +23,10 @@ class BottomSheetButtonWidget extends StatelessWidget {
             child: Text(
               title,
               style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 15),
+                color: Colors.white,
+                fontWeight: FontWeight.w700,
+                fontSize: 15,
+              ),
             ),
           ),
           color: Color.fromRGBO(77, 221, 133, 0.8),

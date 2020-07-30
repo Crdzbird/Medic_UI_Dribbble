@@ -97,7 +97,7 @@ class _NewAppointmentMapWidgetState extends State<NewAppointmentMapWidget>
           bottom: 0,
           child: Container(
             decoration: BoxDecoration(
-              color: Color.fromRGBO(247, 247, 247, 0.9),
+              color: Color.fromRGBO(247, 247, 247, 1.0),
               borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
               boxShadow: [
                 BoxShadow(
