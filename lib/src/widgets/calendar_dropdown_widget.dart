@@ -270,7 +270,9 @@ class _CalendarDropDownWidgetState extends State<CalendarDropDownWidget>
                                     ),
                                   ),
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.pushNamed(context, 'home');
+                                },
                               ),
                             ),
                           ),
